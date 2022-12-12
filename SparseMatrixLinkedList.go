@@ -133,6 +133,74 @@ func (m *SparseMatrix) GetIndex(index int) *float64 {
 	return nil
 }
 
+/**
+ * + Operator
+ */
+func (m *SparseMatrix) AddMatrix(m2 *SparseMatrix) *SparseMatrix {
+	if m.rows != m2.rows || m.cols != m2.cols {
+		return nil
+	}
+	result := NewSparseMatrix(m.rows, m.cols)
+	current := m.head
+	for current != nil {
+		result.Add(current.row, current.col, current.value+m2.Get(current.row, current.col))
+		current = current.next
+	}
+	return result
+}
+
+/**
+ * - Operator
+ */
+func (m *SparseMatrix) SubMatrix(m2 *SparseMatrix) *SparseMatrix {
+	if m.rows != m2.rows || m.cols != m2.cols {
+		return nil
+	}
+	result := NewSparseMatrix(m.rows, m.cols)
+	current := m.head
+	for current != nil {
+		result.Add(current.row, current.col, current.value-m2.Get(current.row, current.col))
+		current = current.next
+	}
+	return result
+}
+
+/**
+ * * Operator
+ */
+func (m *SparseMatrix) MulMatrix(m2 *SparseMatrix) *SparseMatrix {
+	if m.cols != m2.rows {
+		return nil
+	}
+	result := NewSparseMatrix(m.rows, m2.cols)
+	current := m.head
+	for current != nil {
+		for i := 0; i < m2.cols; i++ {
+			result.Add(current.row, i, result.Get(current.row, i)+current.value*m2.Get(current.col, i))
+		}
+		current = current.next
+	}
+	return result
+}
+
+/**
+ * / Operator
+ */
+func (m *SparseMatrix) DivMatrix(m2 *SparseMatrix) *SparseMatrix {
+	if m.cols != m2.rows {
+		return nil
+	}
+	result := NewSparseMatrix(m.rows, m2.cols)
+	current := m.head
+	for current != nil {
+		for i := 0; i < m2.cols; i++ {
+			result.Add(current.row, i, result.Get(current.row, i)+current.value/m2.Get(current.col, i))
+		}
+		current = current.next
+	}
+	return result
+}
+
 func main() {
 	// Create a new sparse matrix
 	matrix := NewSparseMatrix(3, 3)
