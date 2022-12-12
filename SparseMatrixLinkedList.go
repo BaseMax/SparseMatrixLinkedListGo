@@ -242,4 +242,45 @@ func main() {
 
 	// Get the value at a specific index
 	fmt.Println(*matrix.GetIndex(0))
+
+	// Create a new sparse matrix
+	matrix2 := NewSparseMatrix(3, 3)
+
+	// Add some values
+	matrix2.Add(0, 0, 1)
+	matrix2.Add(0, 1, 2)
+	matrix2.Add(0, 2, 3)
+	matrix2.Add(1, 0, 4)
+	matrix2.Add(1, 1, 5)
+	matrix2.Add(1, 2, 6)
+	matrix2.Add(2, 0, 7)
+	matrix2.Add(2, 1, 8)
+	matrix2.Add(2, 2, 9)
+
+	// Print the matrix
+	matrix2.Print()
+
+	// Add two sparse matrices
+	matrix3 := matrix.AddMatrix(matrix2)
+
+	// Print the matrix
+	matrix3.Print()
+
+	// Subtract two sparse matrices
+	matrix4 := matrix.SubMatrix(matrix2)
+
+	// Print the matrix
+	matrix4.Print()
+
+	// Multiply two sparse matrices
+	matrix5 := matrix.MulMatrix(matrix2)
+
+	// Print the matrix
+	matrix5.Print()
+
+	// Divide two sparse matrices
+	matrix6 := matrix.DivMatrix(matrix2)
+
+	// Print the matrix
+	matrix6.Print()
 }
