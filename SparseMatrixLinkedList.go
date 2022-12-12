@@ -52,6 +52,55 @@ func (m *SparseMatrix) Get(row, col int) float64 {
 }
 
 /**
+ * Check if the sparse matrix is empty
+ */
+func (m *SparseMatrix) IsEmpty() bool {
+	return m.head == nil
+}
+
+/**
+ * Get the number of rows in the sparse matrix
+ */
+func (m *SparseMatrix) Rows() int {
+	return m.rows
+}
+
+/**
+ * Get the number of columns in the sparse matrix
+ */
+func (m *SparseMatrix) Cols() int {
+	return m.cols
+}
+
+/**
+ * Has a value at a specific row and column
+ */
+func (m *SparseMatrix) Has(row, col int) bool {
+	current := m.head
+	for current != nil {
+		if current.row == row && current.col == col {
+			return true
+		}
+		current = current.next
+	}
+	return false
+}
+
+/**
+ * Has an index in the real matrix
+ */
+func (m *SparseMatrix) HasIndex(index int) bool {
+	current := m.head
+	for current != nil {
+		if current.row*m.cols+current.col == index {
+			return true
+		}
+		current = current.next
+	}
+	return false
+}
+
+/**
  * Print the sparse matrix
  */
 func (m *SparseMatrix) Print() {
@@ -61,4 +110,37 @@ func (m *SparseMatrix) Print() {
 		}
 		fmt.Println()
 	}
+}
+
+/**
+ * Get the value at a specific index, if not found return nil
+ */
+func (m *SparseMatrix) GetIndex(index int) *float64 {
+	current := m.head
+	for current != nil {
+		if current.row*m.cols+current.col == index {
+			return &current.value
+		}
+		current = current.next
+	}
+	return nil
+}
+
+func main() {
+	// Create a new sparse matrix
+	matrix := NewSparseMatrix(3, 3)
+
+	// Add some values
+	matrix.Add(0, 0, 1)
+	matrix.Add(0, 1, 2)
+	matrix.Add(0, 2, 3)
+	matrix.Add(1, 0, 4)
+	matrix.Add(1, 1, 5)
+	matrix.Add(1, 2, 6)
+	matrix.Add(2, 0, 7)
+	matrix.Add(2, 1, 8)
+	matrix.Add(2, 2, 9)
+
+	// Print the matrix
+	matrix.Print()
 }
