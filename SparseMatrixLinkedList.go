@@ -59,6 +59,13 @@ func (m *SparseMatrix) IsEmpty() bool {
 }
 
 /**
+ * Get size of the sparse matrix (rows and columns)
+ */
+func (m *SparseMatrix) Size() (int, int) {
+	return m.rows, m.cols
+}
+
+/**
  * Get the number of rows in the sparse matrix
  */
 func (m *SparseMatrix) Rows() int {
@@ -143,4 +150,28 @@ func main() {
 
 	// Print the matrix
 	matrix.Print()
+
+	// Get the value at a specific row and column
+	fmt.Println(matrix.Get(0, 0))
+
+	// Check if the matrix is empty
+	fmt.Println(matrix.IsEmpty())
+
+	// Get the number of rows
+	fmt.Println(matrix.Rows())
+
+	// Get the number of columns
+	fmt.Println(matrix.Cols())
+
+	// Get the size of the matrix
+	fmt.Println(matrix.Size())
+
+	// Check if the matrix has a value at a specific row and column
+	fmt.Println(matrix.Has(0, 0))
+
+	// Check if the matrix has a value at a specific index
+	fmt.Println(matrix.HasIndex(0))
+
+	// Get the value at a specific index
+	fmt.Println(*matrix.GetIndex(0))
 }
