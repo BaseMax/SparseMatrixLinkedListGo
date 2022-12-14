@@ -8,7 +8,7 @@ Here, we are going to store the sparse matrix in a normal linked-list.
 
 **Types:**
 
-```
+```go
 // Storing a item in sparse matrix
 type Node struct {
 	row, col int
